@@ -16,5 +16,5 @@ interface UserApi {
 const val BASE_URL = "https://randomuser.me/"
 const val API = "api"
 const val RESULTS = "results"
-const val DEFAULT_RESULTS_LIMIT = 20
+const val DEFAULT_RESULTS_LIMIT = 10
 // endregion

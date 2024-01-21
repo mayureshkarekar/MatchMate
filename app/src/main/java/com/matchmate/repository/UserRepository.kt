@@ -4,6 +4,7 @@ import android.content.Context
 import com.matchmate.R
 import com.matchmate.database.UserDao
 import com.matchmate.model.User
+import com.matchmate.model.User.Status
 import com.matchmate.network.NetworkUtils
 import com.matchmate.network.UserApi
 import com.matchmate.utils.Resource
@@ -20,11 +21,11 @@ class UserRepository @Inject constructor(
     private val userApi: UserApi,
     private val userDao: UserDao
 ) {
-    // region user list
     private val _users = MutableStateFlow<Resource<List<User>>>(Resource.Loading())
     val users: StateFlow<Resource<List<User>>>
         get() = _users
 
+    // region user list
     /**
      * This method is used to fetch the list of users from server. If the internet is not available
      * it fetches the locally stored data.
@@ -34,8 +35,11 @@ class UserRepository @Inject constructor(
             if (NetworkUtils.isInternetAvailable(context)) {
                 val response = userApi.getUsers()
                 if (response.isSuccessful) {
-                    Timber.d("Users fetched successfully from server.")
-                    _users.emit(Resource.Success(response.body()?.results.orEmpty()))
+                    response.body()?.results?.let {
+                        Timber.d("Users fetched successfully from server.")
+                        userDao.addUsers(it)
+                        _users.emit(Resource.Success(userDao.getUsers()))
+                    }
                 } else {
                     Timber.d("Failed to fetch users from server. Cause: ${response.errorBody()}")
                     _users.emit(Resource.Error(context.getString(R.string.something_went_wrong)))
@@ -53,6 +57,29 @@ class UserRepository @Inject constructor(
         } catch (e: Exception) {
             Timber.e("Failed to fetch users. Cause: ${e.message}")
             _users.emit(Resource.Error(context.getString(R.string.something_went_wrong)))
+        }
+    }
+    // endregion
+
+    // region update user status
+    /**
+     * This method updates the status of the user into the database and updates the current list.
+     * @param status - Changed status.
+     * @param userId - Id of user whose status to be changed.
+     **/
+    suspend fun updateUserStatus(@Status status: Int, userId: Int) {
+        val updatedData = users.value.data?.map {
+            if (it.id == userId) {
+                val updatedUser = it.copy(status = status)
+                userDao.updateUser(updatedUser)
+                updatedUser
+            } else it
+        }
+
+        if (updatedData != null) {
+            _users.emit(Resource.Success(updatedData))
+        } else {
+            Timber.e("Failed to update status for user $userId")
         }
     }
     // endregion
