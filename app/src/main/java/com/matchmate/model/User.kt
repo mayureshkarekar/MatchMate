@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName
 @Entity(tableName = USER_TABLE_NAME)
 data class User(
     @PrimaryKey(autoGenerate = true)
-    @SerializedName("id")
+    @SerializedName("userid")
     val id: Int,
 
     @SerializedName("name")
@@ -24,6 +24,11 @@ data class User(
 
     @SerializedName("picture")
     val picture: Picture
+)
+
+data class UserResponse(
+    @SerializedName("results")
+    val results: List<User>
 )
 
 // region constants

@@ -1,12 +1,14 @@
-package com.matchmate.model
+package com.matchmate.model.typeconvertor
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson
-import javax.inject.Inject
+import com.matchmate.model.Dob
+import com.matchmate.model.Location
+import com.matchmate.model.Name
+import com.matchmate.model.Picture
 
-class UserTypeConverters {
-    @Inject
-    lateinit var gson: Gson
+class UserTypeConverter {
+    private val gson = Gson()
 
     @TypeConverter
     fun fromName(name: Name): String {
