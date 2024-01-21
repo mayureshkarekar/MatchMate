@@ -47,11 +47,11 @@ fun UserScreen() {
 
     when (usersResource.value) {
         is Resource.Loading -> {
-            Text(text = "Loading")
+            CircularProgress()
         }
 
         is Resource.Error -> {
-            Text(text = "Error")
+            NoDataView(message = stringResource(id = R.string.no_data_found))
         }
 
         is Resource.Success -> {
