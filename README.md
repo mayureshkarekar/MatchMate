@@ -8,7 +8,6 @@ Welcome to our MatchMate App, where love meets technology! Discover your perfect
 This app make use of RandomUser API given below. It fetches the list of random users and presents their information. You can accept or reject the match according your interest. The app maitains the record of responded matches by you.
 ```
 https://randomuser.me/api?results=10
-
 ```
 ## Features
 
@@ -23,6 +22,25 @@ https://randomuser.me/api?results=10
 
 #### User Friendly
 - The app is easy to use and responsive.
+## Libraries Used
+
+**Compose:** UI Designing using declarative pattern.
+
+**Retrofit:** HTTP API framework to make netowk calls to server.
+
+**Room:** Database framework for persistent data storage.
+
+**Coroutines:** Asynchronous background work.
+
+**Navigation:** Navigation using Navigation Controller.
+
+**Glide:** Asynchronous image loading.
+
+**Hilt:** Android Dependency Injection framework.
+
+**Timber:** Debug logs.
+
+
 ## Feedback
 
 If you have any feedback, please reach out to us at mkarekar95@gmail.com
