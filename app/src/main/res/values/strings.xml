@@ -6,4 +6,14 @@
     <string name="internet_not_available">Internet not available.</string>
     <string name="something_went_wrong">Something went wrong.</string>
     <!-- endregion -->
+
+    <!-- region ui -->
+    <string name="formatted_name">%s %s</string>
+    <string name="formatted_age">%d Years</string>
+    <string name="formatted_location">%s, %s, %s</string>
+    <string name="accept">Accept</string>
+    <string name="reject">Reject</string>
+    <string name="accepted">Accepted</string>
+    <string name="rejected">Rejected</string>
+    <!-- endregion -->
 </resources>

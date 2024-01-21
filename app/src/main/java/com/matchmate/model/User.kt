@@ -33,6 +33,7 @@ data class User(
         const val PENDING = 0
         const val ACCEPTED = 1
         const val REJECTED = 2
+        const val GENDER_MALE = "male"
     }
 
     @Retention(AnnotationRetention.SOURCE)
