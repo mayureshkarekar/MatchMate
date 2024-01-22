@@ -19,6 +19,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -160,10 +161,12 @@ fun UserItem(user: User, onStatusChange: (Int) -> Unit) {
                     }
                     .padding(12.dp)) {
                 ActionButton(
+                    modifier = Modifier.testTag(TEST_TAG_BTN_ACCEPT),
                     actionName = stringResource(id = R.string.accept),
                     actionIcon = R.drawable.ic_tick
                 ) { onStatusChange(ACCEPTED) }
                 ActionButton(
+                    modifier = Modifier.testTag(TEST_TAG_BTN_REJECT),
                     actionName = stringResource(id = R.string.reject),
                     actionIcon = R.drawable.ic_close
                 ) { onStatusChange(REJECTED) }
@@ -216,3 +219,8 @@ fun ActionButton(
         )
     }
 }
+
+// region constants
+const val TEST_TAG_BTN_ACCEPT = "btn_accept"
+const val TEST_TAG_BTN_REJECT = "btn_reject"
+// endregion
